@@ -1270,11 +1270,11 @@ body.nav-open .menu-toggle span + span {
   padding: 9px 12px 9px 9px;
   color: var(--text);
   background:
-    radial-gradient(circle at 18% 35%, rgba(255, 255, 255, 0.84), transparent 42%),
-    linear-gradient(135deg, rgba(248, 252, 253, 0.92), rgba(255, 255, 255, 0.72));
-  border: 1px solid rgba(91, 124, 138, 0.14);
+    radial-gradient(circle at 18% 35%, rgba(255, 255, 255, 0.86), transparent 42%),
+    linear-gradient(135deg, rgba(246, 251, 255, 0.94), rgba(255, 255, 255, 0.76));
+  border: 1px solid rgba(78, 146, 205, 0.16);
   border-radius: 8px;
-  box-shadow: 0 12px 26px rgba(54, 46, 36, 0.045), inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  box-shadow: 0 12px 26px rgba(35, 96, 150, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.86);
   text-decoration: none;
   transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease, background 220ms ease;
 }
@@ -1293,10 +1293,10 @@ body.nav-open .menu-toggle span + span {
 .press-coverage:focus-visible {
   color: var(--text);
   background:
-    radial-gradient(circle at 18% 35%, rgba(255, 255, 255, 0.95), transparent 42%),
-    linear-gradient(135deg, rgba(247, 252, 253, 0.96), rgba(255, 255, 255, 0.82));
-  border-color: rgba(91, 124, 138, 0.24);
-  box-shadow: 0 16px 34px rgba(54, 46, 36, 0.065), inset 0 1px 0 rgba(255, 255, 255, 0.92);
+    radial-gradient(circle at 18% 35%, rgba(255, 255, 255, 0.96), transparent 42%),
+    linear-gradient(135deg, rgba(243, 250, 255, 0.98), rgba(255, 255, 255, 0.86));
+  border-color: rgba(58, 132, 197, 0.28);
+  box-shadow: 0 16px 34px rgba(35, 96, 150, 0.085), inset 0 1px 0 rgba(255, 255, 255, 0.94);
   transform: translateY(-2px);
 }
 
@@ -1306,7 +1306,7 @@ body.nav-open .menu-toggle span + span {
 }
 
 .press-coverage:focus-visible {
-  outline: 3px solid rgba(115, 148, 156, 0.18);
+  outline: 3px solid rgba(67, 151, 222, 0.2);
   outline-offset: 3px;
 }
 
@@ -1318,9 +1318,9 @@ body.nav-open .menu-toggle span + span {
   aspect-ratio: 16 / 9;
   object-fit: cover;
   object-position: center;
-  border: 1px solid rgba(91, 124, 138, 0.12);
+  border: 1px solid rgba(78, 146, 205, 0.16);
   border-radius: 6px;
-  filter: saturate(0.88) contrast(0.98) brightness(1.03);
+  filter: saturate(0.96) contrast(1.02) brightness(1.02);
 }
 
 .press-copy {
@@ -1336,9 +1336,9 @@ body.nav-open .menu-toggle span + span {
   width: fit-content;
   align-items: center;
   padding: 2px 8px;
-  color: var(--sage-ink);
-  background: rgba(222, 240, 255, 0.72);
-  border: 1px solid rgba(79, 143, 189, 0.16);
+  color: var(--blue-ink);
+  background: rgba(222, 240, 255, 0.76);
+  border: 1px solid rgba(78, 146, 205, 0.18);
   border-radius: 999px;
   font-size: 11px;
   font-weight: 700;
