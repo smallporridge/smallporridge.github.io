@@ -222,7 +222,7 @@
         const drift = Math.sin(time * 0.00075 + particle.phase) * 0.18;
         ctx.beginPath();
         ctx.arc(particle.x + drift, particle.y, particle.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(47, 121, 173, 0.78)";
+        ctx.fillStyle = "rgba(111, 44, 145, 0.8)";
         ctx.fill();
       });
 
@@ -399,9 +399,9 @@
       const offsetY = (height - 158 * scale) / 2 + 5 * scale;
       const sx = (value) => offsetX + value * scale;
       const sy = (value) => offsetY + value * scale;
-      const outlineColor = "rgba(68, 103, 116, 0.58)";
-      const softOutlineColor = "rgba(128, 158, 160, 0.46)";
-      const warmAccentColor = "rgba(204, 159, 155, 0.5)";
+      const outlineColor = "rgba(91, 48, 120, 0.58)";
+      const softOutlineColor = "rgba(154, 118, 174, 0.46)";
+      const warmAccentColor = "rgba(218, 148, 196, 0.5)";
       const addPoint = (x, y, zone, color, size = rand(0.58, 1.08)) => {
         targets.push({
           x: x + rand(-0.72, 0.72),
@@ -473,13 +473,13 @@
                         ? "ear"
                         : "head"
                       : "body";
-            let color = "rgba(226, 238, 237, 0.74)";
-            if (Math.random() > 0.66) color = "rgba(246, 250, 248, 0.84)";
-            if (Math.random() > 0.87) color = "rgba(90, 121, 132, 0.44)";
-            if (zone === "tail" && Math.random() > 0.72) color = "rgba(214, 230, 228, 0.72)";
+            let color = "rgba(239, 226, 247, 0.74)";
+            if (Math.random() > 0.66) color = "rgba(252, 248, 255, 0.84)";
+            if (Math.random() > 0.87) color = "rgba(104, 67, 126, 0.44)";
+            if (zone === "tail" && Math.random() > 0.72) color = "rgba(228, 213, 238, 0.72)";
             if (isEar && Math.random() > 0.78) color = warmAccentColor;
-            if (isEye) color = "rgba(39, 72, 84, 0.78)";
-            if (isNose) color = "rgba(188, 130, 128, 0.58)";
+            if (isEye) color = "rgba(61, 34, 76, 0.78)";
+            if (isNose) color = "rgba(195, 111, 174, 0.58)";
             targets.push({
               x: px + rand(-0.45, 0.45),
               y: py + rand(-0.45, 0.45),
@@ -493,7 +493,7 @@
       addCurve(56, 75, 22, 60, 29, 25, 64, 36, 82, "tail", outlineColor);
       addCurve(64, 36, 83, 43, 76, 59, 58, 59, 50, "tail", softOutlineColor);
       addEllipse(95, 82, 59, 26, -0.04, 190, "body", softOutlineColor);
-      addEllipse(61, 87, 24, 20, -0.12, 76, "body", "rgba(154, 176, 170, 0.36)");
+      addEllipse(61, 87, 24, 20, -0.12, 76, "body", "rgba(168, 137, 184, 0.36)");
       addEllipse(150, 67, 28, 25, 0.08, 116, "head", outlineColor);
       addTriangle([[130, 51], [137, 26], [150, 52]], 24, "ear", softOutlineColor);
       addTriangle([[150, 51], [166, 29], [171, 56]], 24, "ear", softOutlineColor);
@@ -510,10 +510,10 @@
         addEllipse(leg.x + 8, leg.y + leg.h, 10, 4.6, 0, 32, leg.zone, softOutlineColor);
       });
       [[62, 60], [70, 70], [78, 80]].forEach(([endY, controlY]) => {
-        addCurve(166, 70, 181, controlY, 186, endY, 193, endY, 24, "head", "rgba(70, 104, 116, 0.48)");
+        addCurve(166, 70, 181, controlY, 186, endY, 193, endY, 24, "head", "rgba(91, 48, 120, 0.48)");
       });
       for (let i = 0; i < 30; i += 1) {
-        addPoint(sx(158), sy(63), "head", "rgba(39, 72, 84, 0.8)", rand(0.72, 1.2));
+        addPoint(sx(158), sy(63), "head", "rgba(61, 34, 76, 0.8)", rand(0.72, 1.2));
       }
       for (let i = 0; i < 24; i += 1) {
         addPoint(sx(169), sy(70), "head", warmAccentColor, rand(0.58, 0.96));
