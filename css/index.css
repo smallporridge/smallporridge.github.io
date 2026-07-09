@@ -1423,6 +1423,13 @@ body.nav-open .menu-toggle span + span {
   transform: none;
 }
 
+.publications-section,
+.publications-section.reveal,
+.js-ready .publications-section.reveal {
+  opacity: 1;
+  transform: none;
+}
+
 @keyframes depth-drift {
   from {
     transform: translate3d(-18px, -8px, 0) scale(1.02);
