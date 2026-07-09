@@ -912,7 +912,7 @@ body.nav-open .menu-toggle span + span {
   --visual-img-y: 0px;
   --visual-scale: 1;
   margin: 22px 0 0;
-  aspect-ratio: 16 / 6.8;
+  aspect-ratio: 16 / 5;
   background:
     radial-gradient(circle at var(--visual-x) var(--visual-y), rgba(255, 255, 255, calc(var(--visual-glow) * 0.62)), transparent 28%),
     linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(246, 251, 252, 0.64));
@@ -1846,7 +1846,7 @@ body.nav-open .menu-toggle span + span {
   }
 
   .research-visual {
-    aspect-ratio: 16 / 7.4;
+    aspect-ratio: 16 / 5;
   }
 
   .research-node span {
@@ -2020,7 +2020,7 @@ body.nav-open .menu-toggle span + span {
   }
 
   .research-visual {
-    aspect-ratio: 16 / 9.2;
+    aspect-ratio: 16 / 5;
   }
 
   .research-node {
