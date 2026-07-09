@@ -1407,11 +1407,17 @@ body.nav-open .menu-toggle span + span {
 }
 
 .reveal {
-  opacity: 0;
-  transform: translateY(14px);
+  opacity: 1;
+  transform: none;
   transition: opacity 700ms ease, transform 700ms ease;
 }
 
+.js-ready .reveal {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.js-ready .reveal.is-visible,
 .reveal.is-visible {
   opacity: 1;
   transform: none;

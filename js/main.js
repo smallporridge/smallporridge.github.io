@@ -8,6 +8,51 @@
     .filter(Boolean);
   const backToTop = document.querySelector("[data-back-to-top]");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  body.classList.add("js-ready");
+  let navSyncFrame = null;
+
+  const setActiveNav = (sectionId) => {
+    navLinks.forEach((link) => {
+      link.classList.toggle("is-active", link.getAttribute("href") === `#${sectionId}`);
+    });
+  };
+
+  const syncActiveNav = () => {
+    if (!sections.length) return;
+    const anchorY = window.scrollY + Math.min(window.innerHeight * 0.34, 260);
+    let active = sections[0];
+
+    sections.forEach((section) => {
+      const sectionTop = window.scrollY + section.getBoundingClientRect().top;
+      if (sectionTop <= anchorY) active = section;
+    });
+
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 6) {
+      active = sections[sections.length - 1];
+    }
+
+    setActiveNav(active.id);
+  };
+
+  const scheduleActiveNav = () => {
+    if (navSyncFrame) window.cancelAnimationFrame(navSyncFrame);
+    navSyncFrame = window.requestAnimationFrame(() => {
+      navSyncFrame = null;
+      syncActiveNav();
+    });
+  };
+
+  const revealTarget = (target) => {
+    if (target && target.classList.contains("reveal")) target.classList.add("is-visible");
+  };
+
+  const syncHashTarget = () => {
+    if (!window.location.hash) return;
+    const target = document.querySelector(window.location.hash);
+    revealTarget(target);
+    if (target && sections.includes(target)) setActiveNav(target.id);
+    scheduleActiveNav();
+  };
 
   const closeMenu = () => {
     body.classList.remove("nav-open");
@@ -38,8 +83,12 @@
       const target = document.querySelector(link.getAttribute("href"));
       if (!target) return;
       event.preventDefault();
+      revealTarget(target);
+      if (sections.includes(target)) setActiveNav(target.id);
       target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
       history.replaceState(null, "", link.getAttribute("href"));
+      window.setTimeout(scheduleActiveNav, reduceMotion ? 0 : 320);
+      window.setTimeout(scheduleActiveNav, reduceMotion ? 0 : 760);
     });
   });
 
@@ -70,27 +119,29 @@
           }
         });
       },
-      { threshold: 0.14, rootMargin: "0px 0px -10% 0px" }
+      { threshold: 0.01, rootMargin: "0px 0px -8% 0px" }
     );
 
     document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
 
-    const navObserver = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (!visible) return;
-        navLinks.forEach((link) => {
-          link.classList.toggle("is-active", link.getAttribute("href") === `#${visible.target.id}`);
-        });
-      },
-      { threshold: [0.12, 0.26, 0.42], rootMargin: "-22% 0px -62% 0px" }
-    );
-
-    sections.forEach((section) => navObserver.observe(section));
+    syncHashTarget();
+    scheduleActiveNav();
+    window.setTimeout(syncHashTarget, 120);
+    window.setTimeout(scheduleActiveNav, 900);
+    window.addEventListener("scroll", scheduleActiveNav, { passive: true });
+    window.addEventListener("resize", scheduleActiveNav, { passive: true });
+    window.addEventListener("hashchange", syncHashTarget, { passive: true });
+    window.addEventListener("load", syncHashTarget, { passive: true });
+    window.addEventListener("pageshow", syncHashTarget, { passive: true });
+    window.setTimeout(() => {
+      document.querySelectorAll(".reveal").forEach((element) => element.classList.add("is-visible"));
+    }, 1800);
   } else {
     document.querySelectorAll(".reveal").forEach((element) => element.classList.add("is-visible"));
+    syncHashTarget();
+    scheduleActiveNav();
+    window.addEventListener("scroll", scheduleActiveNav, { passive: true });
+    window.addEventListener("resize", scheduleActiveNav, { passive: true });
   }
 
   const initParticleTitle = () => {
