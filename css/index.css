@@ -697,14 +697,14 @@ body.nav-open .menu-toggle span + span {
   width: 100%;
   height: 100%;
   filter: blur(0);
-  opacity: 0.62;
+  opacity: 1;
 }
 
 .particle-fallback {
   position: absolute;
   inset: 0;
   z-index: 1;
-  display: flex;
+  display: none;
   align-items: center;
   color: rgba(30, 43, 55, 0.92);
   font-family: var(--serif);
@@ -715,7 +715,7 @@ body.nav-open .menu-toggle span + span {
 }
 
 .particle-title.is-ready .particle-fallback {
-  opacity: 0.92;
+  opacity: 0;
 }
 
 .identity-keywords {
@@ -975,7 +975,7 @@ body.nav-open .menu-toggle span + span {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: hue-rotate(178deg) saturate(0.86) contrast(0.99) brightness(1.025);
+  filter: saturate(0.98) contrast(1.01) brightness(1.015);
 }
 
 .research-flow {
