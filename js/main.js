@@ -222,7 +222,7 @@
         const drift = Math.sin(time * 0.00075 + particle.phase) * 0.18;
         ctx.beginPath();
         ctx.arc(particle.x + drift, particle.y, particle.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(43, 78, 90, 0.68)";
+        ctx.fillStyle = "rgba(47, 121, 173, 0.78)";
         ctx.fill();
       });
 
