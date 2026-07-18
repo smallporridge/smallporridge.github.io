@@ -2076,3 +2076,21 @@ body.nav-open .menu-toggle span + span {
     opacity: 0 !important;
   }
 }
+
+
+.pointer-ripple-field {
+  position: fixed;
+  inset: 0;
+  z-index: 12;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  contain: strict;
+}
+
+@media (prefers-reduced-motion: reduce), (pointer: coarse) {
+  .pointer-ripple-field {
+    display: none !important;
+  }
+}
