@@ -22,6 +22,7 @@
       this.queue = [];
       this.pointer = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
       this.lastFrame = performance.now();
+      this.lastRenderedFrame = 0;
       this.startTime = this.lastFrame;
       this.activeUntil = 0;
       this.cleared = true;
@@ -33,8 +34,8 @@
       this.cssWidth = Math.max(1, rect.width);
       this.cssHeight = Math.max(1, rect.height);
       this.aspect = this.cssWidth / this.cssHeight;
-      this.width = clamp(Math.round(this.cssWidth / 4), 140, 240);
-      this.height = clamp(Math.round(this.width / this.aspect), 64, 150);
+      this.width = clamp(Math.round(this.cssWidth / 5), 120, 180);
+      this.height = clamp(Math.round(this.width / this.aspect), 56, 120);
       this.canvas.width = this.width;
       this.canvas.height = this.height;
       const length = this.width * this.height;
@@ -222,6 +223,8 @@
         if (!this.cleared) this.clearOutput();
         return false;
       }
+      if (now - this.lastRenderedFrame < 22) return true;
+      this.lastRenderedFrame = now;
       const elapsedSeconds = Math.min(0.05, Math.max(0.001, (now - this.lastFrame) / 1000));
       this.lastFrame = now;
       const elapsed = (now - this.startTime) / 1000;
