@@ -25,6 +25,7 @@
       this.lastRenderedFrame = 0;
       this.startTime = this.lastFrame;
       this.activeUntil = 0;
+      this.fade = 0;
       this.cleared = true;
       this.resize();
     }
@@ -58,9 +59,15 @@
       });
       if (this.queue.length > 120) this.queue.splice(0, this.queue.length - 120);
       const now = performance.now();
-      this.activeUntil = now + 5200;
+      this.activeUntil = now + 1300;
+      this.fade = 1;
       this.lastFrame = now;
       this.cleared = false;
+    }
+
+    settle() {
+      const now = performance.now();
+      this.activeUntil = Math.min(this.activeUntil, now + 700);
     }
 
     setPointer(x, y) {
@@ -122,13 +129,13 @@
             + sourceH[downY * width + x]
           );
           let velocity = sourceV[index] + (average - sourceH[index]) * 0.565 * step;
-          velocity *= Math.pow(0.9917, step);
+          velocity *= Math.pow(0.968, step);
           let level = sourceH[index] + velocity * step;
-          level += (average - level) * 0.0048 * step;
-          level *= Math.pow(0.9996, step);
+          level += (average - level) * 0.012 * step;
+          level *= Math.pow(0.997, step);
 
           const edge = Math.min(x, width - 1 - x, y, height - 1 - y);
-          if (edge < 7) velocity *= 0.982 + 0.018 * (edge / 7);
+          if (edge < 7) velocity *= 0.9 + 0.1 * (edge / 7);
           targetV[index] = velocity;
           targetH[index] = level;
         }
@@ -140,7 +147,7 @@
       this.nextVelocities = sourceV;
     }
 
-    render() {
+    render(fade) {
       const width = this.width;
       const height = this.height;
       const heights = this.heights;
@@ -201,7 +208,7 @@
           blue += (tint[2] * 0.72 - blue) * trough * 0.38;
           const edge = Math.min(x, width - 1 - x, y, height - 1 - y);
           const edgeFade = clamp(edge / 4, 0, 1);
-          const alpha = easedWave * this.options.opacity * (0.62 + lighting * 0.38) * edgeFade;
+          const alpha = easedWave * this.options.opacity * (0.62 + lighting * 0.38) * edgeFade * fade;
           const pixel = index * 4;
           pixels[pixel] = Math.round(clamp(red, 0, 1) * 255);
           pixels[pixel + 1] = Math.round(clamp(green, 0, 1) * 255);
@@ -223,7 +230,8 @@
         if (!this.cleared) this.clearOutput();
         return false;
       }
-      if (now - this.lastRenderedFrame < 22) return true;
+      if (now - this.lastRenderedFrame < 18) return true;
+      this.fade = clamp((this.activeUntil - now) / 700, 0, 1);
       this.lastRenderedFrame = now;
       const elapsedSeconds = Math.min(0.05, Math.max(0.001, (now - this.lastFrame) / 1000));
       this.lastFrame = now;
@@ -236,7 +244,7 @@
       for (let index = 0; index < substeps; index += 1) {
         this.simulate(step, elapsed, index === 0);
       }
-      this.render();
+      this.render(this.fade);
       return true;
     }
   }
@@ -334,6 +342,8 @@
     surface.target.addEventListener("pointerleave", () => {
       hoverPoint = null;
       pressed = false;
+      surface.settle();
+      ensureAnimation();
     }, { passive: true });
     surface.target.addEventListener("pointerdown", (event) => {
       if (event.pointerType === "touch") return;
